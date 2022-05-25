@@ -1,0 +1,69 @@
+<app-navbar></app-navbar>
+
+<div class="container ">
+    <!-- Question page open-->
+    <div *ngIf="!quizData || quizData.length == 0">
+        <h2 class="text-warning d-flex justify-content-center my-5"> No data available for quiz </h2>
+    </div>
+    <div *ngIf="displayQuestion && quizData && quizData.length > 0">
+        <div class="d-flex justify-content-center">
+            <p class="h3 py-3 text-warning"> Start Quiz </p>
+        </div>
+
+        <div>
+            <p class="questionNumber h3 my-3 text-info">Question {{ questionIndex+1 }} of {{ totalQuestions }}</p>
+        </div>
+
+        <div class="bg-secondary py-4 px-5">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <p class="h3 text-dark"> {{ question }} </p>
+                    <label for="options">Options</label>
+                    <ol type="A">
+                        <li>
+                            <input id="option_a" type="radio" value="A" name="options" formControlName="options">
+                            <label class="mx-2"> {{ option_a }}</label>
+                        </li>
+
+                        <li>
+                            <input id="option_b" type="radio" value="B" name="options" formControlName="options">
+                            <label class="mx-2"> {{ option_b }}</label>
+                        </li>
+
+                        <li>
+                            <input id="option_c" type="radio" value="C" name="options" formControlName="options">
+                            <label class="mx-2"> {{ option_c }}</label>
+                        </li>
+                    </ol>
+
+                    <div class="invalid-feedback" *ngIf="f['options'].hasError('required')">
+                        Please choose and option
+                    </div>
+
+                    <button class="btn btn-primary" type="submit" [disabled]="!form.valid"> Submit </button>
+                </div>
+            </form>
+        </div>
+        <hr>
+    </div>
+    <!-- Question page end-->
+
+
+    <!-- Result page open -->
+    <div *ngIf="displayResult">
+        <div class="container p-4">
+            <!-- <img class="img rounded mx-auto d-block" src="./quiz.jpg" alt=""> -->
+        </div>
+
+        <p class="h1 text-dark d-flex justify-content-center">Quiz Completed</p>
+        <div class="bg-light m-5">
+            <p class="row h1 text-success d-flex justify-content-center py-4" *ngIf="score == totalQuestions"> 🎊🎉 Congratulations 🎉🎊</p>
+            <p class="row h1 text-danger d-flex justify-content-center py-4" *ngIf="score == 0"> Poor Performance 😔 </p>
+        <p class="row result h2 text-info d-flex justify-content-center gap-3 p-4"> Your score is: <span class="d-flex justify-content-center text-warning"> {{ score }} / {{ totalQuestions }} </span></p>
+    </div>
+        <div class="container d-flex justify-content-center p-4">
+            <button (click)="onAttepmtAgain()" class="btn btn-info">Click here to attempt again</button>
+        </div>
+    </div>
+    <!-- Result page open -->
+</div>

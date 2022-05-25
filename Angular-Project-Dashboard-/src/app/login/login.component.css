@@ -1,0 +1,16 @@
+.background{
+  background-color: rgb(26, 116, 128);
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+.login{
+    background-color: rgb(48, 151, 117);
+}
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgb(228, 95, 95);
+}
